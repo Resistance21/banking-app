@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import NavLink from "./NavLink";
+import Footer from "./Footer";
 
 const Sidebar = ({ user }: SiderbarProps) => {
   return (
@@ -28,6 +29,7 @@ const Sidebar = ({ user }: SiderbarProps) => {
           return <NavLink key={link.route} {...link} />;
         })}
       </nav>
+      <Footer user={user} />
     </section>
   );
 };
