@@ -25,7 +25,6 @@ const Home = async () => {
             totalBanks={1}
             totalCurrentBalance={1432.45}
           />
-          <TestButton />
         </header>
       </div>
       {loggedIn !== null ? (

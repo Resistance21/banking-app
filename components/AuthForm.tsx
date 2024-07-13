@@ -21,13 +21,25 @@ import CustomInput from "./CustomInput";
 import { authFormSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { signIn, signUp } from "@/lib/actions/user.actions";
+import { getLoggedInUser, signIn, signUp } from "@/lib/actions/user.actions";
+import PlaidLink from "./PlaidLink";
 
 const AuthForm = ({ type }: { type: string }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User>();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  if (user) router.push("/");
+
+  /*   useEffect(() => {
+    let loggedIn: User;
+    const userGet = async () => {
+      loggedIn = await getLoggedInUser();
+      console.log("USER", loggedIn, typeof loggedIn);
+      setUser(loggedIn);
+    };
+    userGet();
+    console.log(user);
+  }, []); */
+  //if (user) router.push("/");
 
   const formSchema = authFormSchema(type);
 
@@ -39,10 +51,6 @@ const AuthForm = ({ type }: { type: string }) => {
     },
   });
 
-  useEffect(() => {
-    //console.log("User state updated:", user);
-  }, [user, router]);
-
   // 2. Define a submit handler.
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
@@ -53,14 +61,14 @@ const AuthForm = ({ type }: { type: string }) => {
           lastName: data.lastName!,
           address1: data.address1!,
           state: data.state!,
-          postCode: data.postCode!,
+          postalCode: data.postalCode!,
           dateOfBirth: data.dateOfBirth!,
           ssn: data.ssn!,
           email: data.email,
           password: data.password,
           city: data.city!,
         };
-        const signedInUser = await await signUp(userData);
+        const signedInUser = await signUp(userData);
         setUser(signedInUser);
       }
       if (type === "sign-in") {
@@ -105,7 +113,9 @@ const AuthForm = ({ type }: { type: string }) => {
         </div>
       </header>
       {user ? (
-        <div className="flex flex-col gap-4">Plaid PH</div>
+        <div className="flex flex-col gap-4">
+          <PlaidLink user={user!} variant="primary" />
+        </div>
       ) : (
         <>
           <Form {...form}>
@@ -143,11 +153,11 @@ const AuthForm = ({ type }: { type: string }) => {
                       control={form.control}
                       name="state"
                       label="State"
-                      placeHolder="ex: VIC"
+                      placeHolder="ex: NY"
                     />
                     <CustomInput
                       control={form.control}
-                      name="postCode"
+                      name="postalCode"
                       label="Post Code"
                       placeHolder="ex: 1432"
                     />
@@ -157,7 +167,7 @@ const AuthForm = ({ type }: { type: string }) => {
                       control={form.control}
                       name="dateOfBirth"
                       label="Date of Birth"
-                      placeHolder="dd-mm-yy"
+                      placeHolder="YYYY-MM-DD"
                     />
                     <CustomInput
                       control={form.control}
