@@ -9,7 +9,7 @@ const MyBanks = async () => {
   const user = await getLoggedInUser();
 
   const accounts = await getAccounts({ userId: user.$id });
-  console.log("user accounts my banks", accounts);
+  //console.log("user accounts my banks", accounts);
   //console.log("logged user", loggedIn);
 
   if (!accounts) return;

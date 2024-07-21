@@ -143,7 +143,7 @@ export async function getLoggedInUser() {
 
 export const createLinkToken = async (user: User) => {
   try {
-    console.log('token user ', user);
+    //console.log('token user ', user);
     const tokenParams : LinkTokenCreateRequest = {
       user: {
         client_user_id: user.$id

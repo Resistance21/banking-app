@@ -13,7 +13,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const user = await getLoggedInUser();
-  console.log(user);
+  //console.log(user);
 
   if (user.$id === "no user") redirect("sign-in");
 
