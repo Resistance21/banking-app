@@ -57,14 +57,6 @@ const RightSideBar = ({ banks, transactions, user }: RightSidebarProps) => {
             )}
           </div>
         )}
-        {/* <div className="mt-10 flex flex-1 flex-col gap-6">
-          <h2 className="header-2">Top categories</h2>
-          <div className="space-y-5">
-            {categories.map((c, i) => {
-              return <Category key={c.name} category={c} />;
-            })}
-          </div>
-        </div> */}
       </section>
     </aside>
   );
