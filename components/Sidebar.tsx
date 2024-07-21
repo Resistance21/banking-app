@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import NavLink from "./NavLink";
 import Footer from "./Footer";
+import PlaidLink from "./PlaidLink";
 
 const Sidebar = ({ user }: SiderbarProps) => {
   return (
@@ -28,6 +29,7 @@ const Sidebar = ({ user }: SiderbarProps) => {
         {sidebarLinks.map((link, i) => {
           return <NavLink key={link.route} {...link} />;
         })}
+        <PlaidLink user={user} />
       </nav>
       <Footer user={user} />
     </section>

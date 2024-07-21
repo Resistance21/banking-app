@@ -1,7 +1,7 @@
 
 'use server'
 
-import { ID } from "node-appwrite"
+import { ID, Query } from "node-appwrite"
 import { createAdminClient, createSessionClient } from "../server/appwite"
 import { cookies } from "next/headers";
 import { encryptId, extractCustomerIdFromUrl, parseStringify } from "../utils";
@@ -18,6 +18,18 @@ export const CheckForUser = async() => {
   return account.get();
 }
 
+export const getUserInfo = async ({userId }:getUserInfoProps) => {
+  try {
+    const { database } = await createAdminClient();
+    
+    const user = await database.listDocuments(APPWRITE_DATABASE_ID!, APPWRITE_USER_COLLECTION_ID!, [Query.equal('userId', [userId])]);
+
+    return parseStringify(user.documents[0])
+  } catch (error) {
+    console.log('Get Banks Error:', error)
+  }
+}
+
 export const signIn = async (userData: signInProps) => {
   try {
 
@@ -31,7 +43,7 @@ export const signIn = async (userData: signInProps) => {
       secure: true,
     });
 
-    const logedInUser = await getLoggedInUser()
+    const logedInUser : User = await getLoggedInUser()
    
     return stringify(logedInUser) 
     
@@ -119,7 +131,9 @@ export async function getLoggedInUser() {
   try {
     console.log('GETTING USER')
     const { account } = await createSessionClient();
-    const loggedUser = await account.get();
+    const result = await account.get();
+
+    const loggedUser = await getUserInfo({ userId: result.$id });
     return parseStringify(loggedUser);
   } catch (error) {
     console.error(error)
@@ -167,6 +181,48 @@ export const createBankAccount = async ({ accessToken, accountId, bankId, fundin
   }
   
 }
+
+
+export const getBanks = async ({userId }: getBanksProps) => {
+  try {
+    const { database } = await createAdminClient();
+    
+    const banks = await database.listDocuments(APPWRITE_DATABASE_ID!, APPWRITE_BANK_COLLECTION_ID!, [Query.equal('userId', [userId])]);
+
+    return parseStringify(banks.documents)
+  } catch (error) {
+    console.log('Get Banks Error:', error)
+  }
+}
+
+export const getBank = async ({documentId}: getBankProps) => {
+  try {
+    const { database } = await createAdminClient();
+    
+    const bank = await database.listDocuments(APPWRITE_DATABASE_ID!, APPWRITE_BANK_COLLECTION_ID!, [Query.equal('$id', [documentId])]);
+
+    return parseStringify(bank.documents[0])
+  } catch (error) {
+    console.log('Get Banks Error:', error)
+  }
+}
+
+export const getBankByAccountId = async ({accountId}: getBankByAccountIdProps) => {
+  try {
+    const { database } = await createAdminClient();
+    
+    const bank = await database.listDocuments(APPWRITE_DATABASE_ID!, APPWRITE_BANK_COLLECTION_ID!, [Query.equal('accountId', [accountId])]);
+
+    if (bank.total !== 1) return null;
+
+    return parseStringify(bank.documents[0])
+  } catch (error) {
+    console.log('Get Banks Error:', error)
+  }
+}
+
+
+
 
 
 // This function exchanges a public token for an access token and item ID

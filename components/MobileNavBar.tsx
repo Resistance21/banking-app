@@ -53,7 +53,7 @@ const MobileNavBar = ({ user }: MobileNavProps) => {
               <nav className="flex h-full flex-col gap-6 pt-16 text-white">
                 {sidebarLinks.map((link) => {
                   const isActive = pathName === link.route;
-                  console.log(`${link.route} is ${isActive}`);
+                  //console.log(`${link.route} is ${isActive}`);
                   return (
                     <SheetClose key={`close-menu-${link.label}`} asChild>
                       <Link
