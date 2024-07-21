@@ -85,7 +85,7 @@ const MobileNavBar = ({ user }: MobileNavProps) => {
                   );
                 })}
               </nav>
-              <Footer user={user} />
+              <Footer user={user} type="mobile" />
             </SheetClose>
           </div>
         </SheetContent>
