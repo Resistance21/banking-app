@@ -20,6 +20,7 @@ import { getTransactionsByBankId } from "./transaction.action";
 export const getAccounts = async ({ userId }: getAccountsProps) => {
   try {
     // get banks from db
+    console.log('GEtting accounts')
     const banks = await getBanks({ userId });
 
     const accounts = await Promise.all(
