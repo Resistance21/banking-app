@@ -23,7 +23,7 @@ const Footer = ({ user, type = "desktop" }: FooterProps) => {
           {user.email}
         </p>
       </div>
-      <LogOutButton cssProps="footer_image" />
+      <LogOutButton cssProps="footer_image cursor-pointer" />
     </footer>
   );
 };

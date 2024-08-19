@@ -33,10 +33,10 @@ const MobileNavBar = ({ user }: MobileNavProps) => {
             className="cursour-pointer"
           />
         </SheetTrigger>
-        <SheetContent side="left" className="border-none bg-white">
-          <SheetTitle className="hidden"></SheetTitle>
-          <SheetDescription className="hidden"></SheetDescription>
-          <SheetClose asChild>
+        <SheetClose>
+          <SheetContent side="left" className="border-none bg-white">
+            <SheetTitle className="hidden"></SheetTitle>
+            <SheetDescription className="hidden"></SheetDescription>
             <Link
               key={"nav-home"}
               href="/"
@@ -47,15 +47,13 @@ const MobileNavBar = ({ user }: MobileNavProps) => {
                 Cursion
               </h1>
             </Link>
-          </SheetClose>
-          <div className="mobilenav-sheet">
-            <SheetClose asChild>
+            <div className="mobilenav-sheet">
               <nav className="flex h-full flex-col gap-6 pt-16 text-white">
                 {sidebarLinks.map((link) => {
                   const isActive = pathName === link.route;
                   //console.log(`${link.route} is ${isActive}`);
                   return (
-                    <SheetClose key={`close-menu-${link.label}`} asChild>
+                    <SheetClose asChild key={`close-menu-${link.label}`}>
                       <Link
                         key={`mobile-${link.label}`}
                         href={link.route}
@@ -86,9 +84,9 @@ const MobileNavBar = ({ user }: MobileNavProps) => {
                 })}
               </nav>
               <Footer user={user} type="mobile" />
-            </SheetClose>
-          </div>
-        </SheetContent>
+            </div>
+          </SheetContent>
+        </SheetClose>
       </Sheet>
     </section>
   );
