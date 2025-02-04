@@ -17,7 +17,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
   const loggedIn: User = await getLoggedInUser();
   if (!loggedIn) redirect("sign-in");
   const accounts = await getAccounts({ userId: loggedIn.$id });
-  //console.log("user accounts", accounts);
+  console.log("user accounts", accounts);
   //console.log("logged user", loggedIn);
 
   if (!accounts) return;
@@ -54,7 +54,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
       {loggedIn !== null ? (
         <RightSideBar
           user={loggedIn}
-          transactions={account.transactions}
+          transactions={account.transactions }
           banks={accountsData?.slice(0, 2)}
         />
       ) : (

@@ -86,6 +86,24 @@ const AuthForm = ({ type }: { type: string }) => {
     }
   };
 
+  const guestLogin = async () => {
+    try {
+      setIsLoading(true);
+      if (type === "sign-in" || type === "sign-up") {
+        const signedInUser = await signIn({
+          email: 'bj@gmail.com',
+          password: 'qweasdzxc',
+        });
+
+        if (signedInUser) router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <section className="auth-form">
       <header className="flex flex-col gap-5 md:gap-8">
@@ -234,7 +252,17 @@ const AuthForm = ({ type }: { type: string }) => {
               {type === "sign-in" ? `Sign Up` : `Sign In`}
             </Link>
           </footer>
+          <div className="flex flex-col gap-4">
+                <Button onClick={guestLogin} className="form-btn" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Loader2 size={20} className="animate-spin" />
+                    </>
+                  ) : ("Sign In With Guest")}
+                </Button>
+              </div>
         </>
+        
       )}
     </section>
   );

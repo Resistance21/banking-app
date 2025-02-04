@@ -15,7 +15,7 @@ const BankInfo = ({ account, appwriteItemId, type }: BankInfoProps) => {
   const searchParams = useSearchParams();
 
   const isActive = appwriteItemId === account?.appwriteItemId;
-  console.log("bankinfo", account, appwriteItemId, type);
+  //console.log("bankinfo", account, appwriteItemId, type);
 
   const handleBankChange = () => {
     const newUrl = formUrlQuery({

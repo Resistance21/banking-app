@@ -6,7 +6,7 @@ import { countTransactionCategories } from "@/lib/utils";
 import Category from "./Category";
 
 const RightSideBar = ({ banks, transactions, user }: RightSidebarProps) => {
-  const categories: CategoryCount[] = countTransactionCategories(transactions);
+  //const categories: CategoryCount[] = countTransactionCategories(transactions);
 
   return (
     <aside className="right-sidebar">
