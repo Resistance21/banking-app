@@ -73,8 +73,10 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
 
     // get account info from plaid
     const accountsResponse = await plaidClient.accountsGet({
+      
       access_token: bank.accessToken,
     });
+    
     const accountData = accountsResponse.data.accounts[0];
 
     // get transfer transactions from appwrite
