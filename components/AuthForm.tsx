@@ -91,7 +91,7 @@ const AuthForm = ({ type }: { type: string }) => {
       setIsLoading(true);
       if (type === "sign-in" || type === "sign-up") {
         const signedInUser = await signIn({
-          email: "john1.j@email.com",
+          email: "john2.j@email.com",
           password: "qwedsazxc",
         });
 
